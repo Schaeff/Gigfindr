@@ -46,7 +46,7 @@ const HomeScreen = (props) => {
       <List>
         {
           results
-            .map((r, i) => <ListItem title={r.name} key={i} onPress={() => { fetchGigsAsync(r.id); return navigate('City', { id: r.id })} }/>)
+            .map((r, i) => <ListItem title={r.city ? [r.city, r.region].join(', ') : r.region} key={i} onPress={() => { fetchGigsAsync(r.id); return navigate('City', { id: r.id })} }/>)
         }
       </List>
     </View>
