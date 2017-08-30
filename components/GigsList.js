@@ -12,7 +12,7 @@ const GigsList = (props) => {
 	}
 
 	return <List>
-		{ gigs.map((g,i) => <GigsListItem key={i} name={g.name} navigation={navigation}/>) }
+		{ gigs.map((g,i) => <GigsListItem key={i} gig={g} navigation={navigation}/>) }
 	</List>
 }
 

@@ -45,7 +45,7 @@ const CityScreen = (props) => {
 
 CityScreen.navigationOptions = ({ navigation }) => {
   return {
-    title: 'Home'
+    title: 'City'
   };
 };
 

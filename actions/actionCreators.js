@@ -6,6 +6,9 @@ import {
   FETCH_GIG,
   FETCH_GIG_RESULTS
 } from './actionConstants';
+
+import { getCityEvents } from '../lib/ra.js'
+
 Promise = require('bluebird')
 
 export const search = text => ({
@@ -72,12 +75,7 @@ const API = {
     .then(() => Object.keys(PLACES)
       .map(key => PLACES[key])
       .filter(p => (p.city && p.city.indexOf(text.toLowerCase()) > -1) || p.region.indexOf(text.toLowerCase()) > -1)),
-  fetchGigs: id => Promise.delay(500)
-    .then(() => ([{
-      name: 'John Doe'
-    }, {
-      name: 'Bob'
-    }])),
+  fetchGigs: c => getCityEvents(c).then(r => {console.log(r); return r}),
   fetchGig: name => Promise.delay(500)
     .then(() => "blahblah")
 }

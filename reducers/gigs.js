@@ -3,7 +3,6 @@ import { FETCH_GIG, FETCH_GIG_RESULTS } from '../actions/actionConstants'
 var initialState = {}
 
 const gigs = (state = initialState, action) => {
-	console.log(action)
 	switch(action.type) {
 		case FETCH_GIG: {
 			const { name } = action.payload

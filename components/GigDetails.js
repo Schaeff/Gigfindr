@@ -10,7 +10,7 @@ const GigDetails = (props) => {
 		gig
 	} = props;
 
-	return <Text>{gig.details}</Text>
+	return <Text>{JSON.stringify(id)}</Text>
 }
 
 export default GigDetails

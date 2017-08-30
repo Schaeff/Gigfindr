@@ -10,13 +10,13 @@ import {
 
 const GigsListItem = (props) => {
 	const {
-		name,
+		gig,
 		fetchGigAsync,
 		navigation
 	} = props;
 	const { navigate } = navigation
 
-	return <ListItem title={name} onPress={() => { fetchGigAsync(name); return navigate('Gig', { id: name })} }/>
+	return <ListItem title={gig.event.url} onPress={() => { fetchGigAsync(gig.event.url); return navigate('Gig', { id: gig.lineup })} }/>
 }
 
 const mapStateToProps = state => ({
