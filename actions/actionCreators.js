@@ -7,9 +7,9 @@ import {
   FETCH_GIG_RESULTS
 } from './actionConstants';
 
-import { getCityEvents } from '../lib/ra.js'
-
 Promise = require('bluebird')
+
+const GIGSCRAPR_URL = "https://gigscrapr.herokuapp.com"
 
 export const search = text => ({
   type: SEARCH,
@@ -75,7 +75,7 @@ const API = {
     .then(() => Object.keys(PLACES)
       .map(key => PLACES[key])
       .filter(p => (p.city && p.city.indexOf(text.toLowerCase()) > -1) || p.region.indexOf(text.toLowerCase()) > -1)),
-  fetchGigs: c => getCityEvents(c).then(r => {console.log(r); return r}),
+  fetchGigs: c => fetch(GIGSCRAPR_URL + '/city/' + c).then(r => r.json()),
   fetchGig: name => Promise.delay(500)
     .then(() => "blahblah")
 }

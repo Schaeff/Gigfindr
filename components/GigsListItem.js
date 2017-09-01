@@ -16,7 +16,7 @@ const GigsListItem = (props) => {
 	} = props;
 	const { navigate } = navigation
 
-	return <ListItem title={gig.event.url} onPress={() => { fetchGigAsync(gig.event.url); return navigate('Gig', { id: gig.lineup })} }/>
+	return <ListItem title={gig.title} onPress={() => { fetchGigAsync(gig.event.url); return navigate('Gig', { id: gig.lineup })} }/>
 }
 
 const mapStateToProps = state => ({
