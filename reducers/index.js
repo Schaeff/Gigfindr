@@ -1,14 +1,14 @@
-import { combineReducers } from 'redux';
+import {
+	combineReducers
+} from 'redux';
 import search from './search'
-import city from './city'
-import gigs from './gigs'
-import djs from './djs'
+import db from './db'
+import play from './play'
 
 const rootReducer = combineReducers({
 	search,
-	city,
-	gigs,
-	djs
+	db,
+	play
 });
 
 export default rootReducer;

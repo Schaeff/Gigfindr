@@ -50,7 +50,7 @@ CityScreen.navigationOptions = ({ navigation }) => {
 };
 
 const mapStateToProps = state => ({
-  city: state.city
+  city: state.db.city
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);

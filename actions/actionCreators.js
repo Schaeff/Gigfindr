@@ -72,17 +72,17 @@ export const fetchGigResults = (name, results) => ({
   }
 })
 
-export const onHoldGig = gig => ({
+export const onHoldGig = gigId => ({
   type: HOLD_GIG,
   payload: {
-    gig
+    gigId
   }
 })
 
-export const onReleaseGig = gig => ({
+export const onReleaseGig = gigId => ({
   type: RELEASE_GIG,
   payload: {
-    gig
+    gigId
   }
 })
 
