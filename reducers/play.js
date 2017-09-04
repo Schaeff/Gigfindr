@@ -3,14 +3,18 @@ import {
 	RELEASE_GIG
 } from '../actions/actionConstants'
 
-var initialState = {state: 'off'}
+var initialState = {
+	state: 'off',
+	gigId: 0
+}
 
 const play = (state = initialState, action) => {
 	switch (action.type) {
 		case HOLD_GIG:
 			{
-				console.log(action)
-				const { gigId } = action.payload
+				const {
+					gigId
+				} = action.payload
 				return {
 					gigId,
 					state: 'loading',
@@ -18,7 +22,9 @@ const play = (state = initialState, action) => {
 			}
 		case RELEASE_GIG:
 			{
-				const { gigId } = action.payload
+				const {
+					gigId
+				} = action.payload
 
 				return {
 					gigId, // keep the gig id for resume play
