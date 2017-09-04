@@ -10,4 +10,8 @@ export const FETCH_GIG = 'FETCH_GIG'
 
 export const FETCH_GIG_RESULTS = 'FETCH_GIG_RESULTS'
 
+export const HOLD_GIG = 'HOLD_GIG'
+
+export const RELEASE_GIG = 'RELEASE_GIG'
+
 

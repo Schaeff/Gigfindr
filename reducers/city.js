@@ -10,6 +10,7 @@ const city = (state = initialState, action) => {
 			return {
 				...state,
 				[id]: {
+					id: id,
 					loading: true,
 					gigs: []
 				}
@@ -21,8 +22,9 @@ const city = (state = initialState, action) => {
 			return {
 				...state,
 				[id]: {
+					id: id,
 					loading: false,
-					gigs: results
+					gigs: results.map(gig => ({gigId: gig.event}))
 				}
 			}
 		}

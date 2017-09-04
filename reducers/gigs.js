@@ -1,34 +1,36 @@
-import { FETCH_GIG, FETCH_GIG_RESULTS } from '../actions/actionConstants'
+import {
+	FETCH_GIGS_RESULTS
+} from '../actions/actionConstants'
 
 var initialState = {}
 
 const gigs = (state = initialState, action) => {
-	switch(action.type) {
-		case FETCH_GIG: {
-			const { name } = action.payload
+	switch (action.type) {
+		case FETCH_GIGS_RESULTS:
+			{
+				const {
+					results
+				} = action.payload
 
-			return {
-				...state,
-				[name]: {
-					loading: true,
-					details: ''
+				const newGigs = Object.assign({}, ...results.map(gig => ({
+					[gig.event]: {
+						id: gig.event,
+						title: gig.title,
+						lineup: gig.lineup.map(dj => ({
+							djId: dj.dj
+						}))
+					}
+				})))
+
+				return {
+					...state,
+					...newGigs
 				}
 			}
-		}
-		case FETCH_GIG_RESULTS: {
-			const { results, name } = action.payload
-			
-			return {
-				...state,
-				[name]: {
-					loading: false,
-					details: results
-				}
+		default:
+			{	
+				return state
 			}
-		}
-		default: {
-			return state
-		}
 	}
 }
 

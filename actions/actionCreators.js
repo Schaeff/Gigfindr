@@ -4,7 +4,9 @@ import {
   FETCH_GIGS,
   FETCH_GIGS_RESULTS,
   FETCH_GIG,
-  FETCH_GIG_RESULTS
+  FETCH_GIG_RESULTS,
+  HOLD_GIG,
+  RELEASE_GIG
 } from './actionConstants';
 
 Promise = require('bluebird')
@@ -67,6 +69,20 @@ export const fetchGigResults = (name, results) => ({
   payload: {
     results,
     name
+  }
+})
+
+export const onHoldGig = gig => ({
+  type: HOLD_GIG,
+  payload: {
+    gig
+  }
+})
+
+export const onReleaseGig = gig => ({
+  type: RELEASE_GIG,
+  payload: {
+    gig
   }
 })
 
