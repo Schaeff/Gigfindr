@@ -14,4 +14,9 @@ export const HOLD_GIG = 'HOLD_GIG'
 
 export const RELEASE_GIG = 'RELEASE_GIG'
 
+export const FETCH_PLAYLIST = 'FETCH_PLAYLIST'
+
+export const FETCH_PLAYLIST_RESULTS = 'FETCH_PLAYLIST_RESULTS'
+
+
 

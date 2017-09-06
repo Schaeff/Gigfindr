@@ -1,5 +1,6 @@
 import {
-	FETCH_GIGS_RESULTS
+	FETCH_GIGS_RESULTS,
+	FETCH_PLAYLIST_RESULTS
 } from '../actions/actionConstants'
 
 var initialState = {}
@@ -17,7 +18,8 @@ const djs = (state = initialState, action) => {
 						({
 							[dj.dj]: {
 								id: dj.dj,
-								soundcloud: dj.soundcloud
+								soundcloud: dj.soundcloud,
+								playlist: null
 							}
 						})
 					)
@@ -26,6 +28,19 @@ const djs = (state = initialState, action) => {
 				return {
 					...state,
 					...newDjs
+				}
+			}
+		case FETCH_PLAYLIST_RESULTS: 
+			{
+				const { id, playlist } = action.payload
+
+				return {
+					...state,
+					[id]: {
+						id: state[id].id,
+						soundcloud: state[id].soundcloud,
+						playlist
+					}
 				}
 			}
 		default:

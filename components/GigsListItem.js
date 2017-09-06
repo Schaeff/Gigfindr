@@ -16,7 +16,7 @@ import {
 } from 'react-native'
 
 
-export const streamUrl = 'https://api.soundcloud.com/tracks/199148907/stream?client_id=2t9loNQH90kzJcsFCODdigxfp325aq4z';
+const streamUrl = 'https://api.soundcloud.com/tracks/63256906/stream?client_id=2t9loNQH90kzJcsFCODdigxfp325aq4z';
 
 const GigsListItem = (props) => {
 	const {
@@ -26,23 +26,22 @@ const GigsListItem = (props) => {
 		playlist
 	} = props;
 
+	const toPlay = playlist.length > 0 ? playlist[0] : streamUrl
+
 	const playing =
 		play.state === 'loading' && play.gigId === gig.gigId
 
 	const title = playing ? ['Playing from', playlist.length, 'sources'].join(' ') : gigs[gig.gigId].title
 
-
 	return <View>
 		<ListItem title={title} onPressOut={onReleasePress(props)} onLongPress={onLongPress(props)}/>
-		<Video source={{uri: streamUrl }}
+		<Video source={{uri: toPlay }}
 			   volume={1.0}
 			   muted={false}
 			   paused={!playing}
 			   playInBackground={true}
 			   playWhenInactive={true}
 			   resizeMode="cover"
-			   onProgress={console.log}
-			   onError={console.log}
 			   repeat={false}/>
 	</View>
 }
