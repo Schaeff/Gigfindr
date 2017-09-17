@@ -1,4 +1,8 @@
 import {
+  GIGSCRAPR_URL
+} from 'react-native-dotenv';
+
+import {
   SEARCH,
   SEARCH_RESULTS,
   FETCH_GIGS,
@@ -13,7 +17,6 @@ import {
 
 Promise = require('bluebird')
 
-const GIGSCRAPR_URL = "https://gigscrapr.herokuapp.com"
 const SOUNDCLOUD_BASE = 'https://soundcloud.com'
 const SOUNDCLOUD_API_BASE = 'http://api.soundcloud.com'
 const SOUNDCLOUD_KEY = '2t9loNQH90kzJcsFCODdigxfp325aq4z'
