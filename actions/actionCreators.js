@@ -1,5 +1,6 @@
 import {
-  GIGSCRAPR_URL
+  GIGSCRAPR_URL,
+  SOUNDCLOUD_CLIENT_ID
 } from 'react-native-dotenv';
 
 import {
@@ -19,16 +20,16 @@ Promise = require('bluebird')
 
 const SOUNDCLOUD_BASE = 'https://soundcloud.com'
 const SOUNDCLOUD_API_BASE = 'http://api.soundcloud.com'
-const SOUNDCLOUD_KEY = '2t9loNQH90kzJcsFCODdigxfp325aq4z'
+const FALLBACK_TRACK_ID=63256942
 
 const getTrackId = dj => {
-  return fetch(SOUNDCLOUD_API_BASE + '/resolve?url=' + SOUNDCLOUD_BASE + '/' + dj + '/tracks' + '&client_id=' + SOUNDCLOUD_KEY)
+  if(dj === null) return Promise.resolve(FALLBACK_TRACK_ID)
+  return fetch(SOUNDCLOUD_API_BASE + '/resolve?url=' + SOUNDCLOUD_BASE + '/' + dj + '/tracks' + '&client_id=' + SOUNDCLOUD_CLIENT_ID)
     .then(res => res.json())
-    .then(t => {console.log("JSON", t); return t})
-    .then(r => (r && r[0] ? r[0].id : 63256942))
+    .then(r => (r && r[0] ? r[0].id : FALLBACK_TRACK_ID))
 }
 
-const getStreamUrl = trackId => SOUNDCLOUD_API_BASE + '/tracks/' + trackId + '/stream?client_id=' + SOUNDCLOUD_KEY
+const getStreamUrl = trackId => SOUNDCLOUD_API_BASE + '/tracks/' + trackId + '/stream?client_id=' + SOUNDCLOUD_CLIENT_ID
 
 export const search = text => ({
   type: SEARCH,
