@@ -1,18 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {
-  Button,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from 'react-native';
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
 
 import { SearchBar, List, ListItem } from 'react-native-elements'
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-import * as actionCreators from '../actions/actionCreators';
+import * as actionCreators from '../actions/actionCreators'
 
 const styles = StyleSheet.create({
   button: {
@@ -32,39 +25,44 @@ const styles = StyleSheet.create({
   spacer: {
     flex: 1
   }
-});
+})
 
-const HomeScreen = (props) => {
-  const { searchAsync, navigation, searching, searchingFor, results, fetchGigsAsync } = props;
-  const { navigate } = navigation;
+const HomeScreen = props => {
+  const { searchAsync, navigation, results, fetchGigsAsync } = props
+  const { navigate } = navigation
 
   return (
     <View style={styles.container}>
-      <SearchBar
-        onChangeText={ searchAsync }
-        placeholder='Where are you' />
+      <SearchBar onChangeText={searchAsync} placeholder="Where are you" />
       <List>
-        {
-          results
-            .map((r, i) => <ListItem title={r.city ? [r.city, r.region].join(', ') : r.region} key={i} onPress={() => { fetchGigsAsync(r.id); return navigate('City', { id: r.id })} }/>)
-        }
+        {results.map((r, i) => (
+          <ListItem
+            key={i}
+            onPress={() => {
+              fetchGigsAsync(r.id)
+              return navigate('City', { id: r.id })
+            }}
+            title={r.city ? [r.city, r.region].join(', ') : r.region}
+          />
+        ))}
       </List>
     </View>
-  );
-};
+  )
+}
 
-HomeScreen.navigationOptions = ({ navigation }) => {
+HomeScreen.navigationOptions = () => {
   return {
     title: 'Home'
-  };
-};
+  }
+}
 
 const mapStateToProps = state => ({
   searching: state.search.searching,
   searchingFor: state.search.searchingFor,
   results: state.search.results
-});
+})
 
-const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(actionCreators, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)

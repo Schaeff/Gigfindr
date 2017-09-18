@@ -1,4 +1,5 @@
-var raw = [{ '1': { city: 'sydney', region: 'au' } },
+var raw = [
+  { '1': { city: 'sydney', region: 'au' } },
   { '2': { city: 'melbourne', region: 'au' } },
   { '3': { city: 'perth', region: 'au' } },
   { '4': { city: 'canberra', region: 'au' } },
@@ -37,8 +38,8 @@ var raw = [{ '1': { city: 'sydney', region: 'au' } },
   { '37': { city: 'greece', region: 'events' } },
   { '38': { city: 'miami', region: 'us' } },
   { '39': { city: 'vancouver', region: 'ca' } },
-  { '40': { city: 'montreal', region: 'ca' } } ,
- { '41': { city: 'madrid', region: 'es' } },
+  { '40': { city: 'montreal', region: 'ca' } },
+  { '41': { city: 'madrid', region: 'es' } },
   { '42': { city: 'israel', region: 'events' } },
   { '43': { city: 'ireland', region: 'events' } },
   { '44': { city: 'paris', region: 'fr' } },
@@ -77,8 +78,8 @@ var raw = [{ '1': { city: 'sydney', region: 'au' } },
   { '77': { city: 'serbia', region: 'events' } },
   { '78': { city: 'hungary', region: 'events' } },
   { '79': { city: 'massachusetts', region: 'us' } },
-  { '80': { city: 'pennsylvania', region: 'us' } } ,
- { '81': { city: 'minnesota', region: 'us' } },
+  { '80': { city: 'pennsylvania', region: 'us' } },
+  { '81': { city: 'minnesota', region: 'us' } },
   { '82': { city: 'colorado', region: 'us' } },
   { '83': { city: 'london', region: 'uk' } },
   { '84': { city: 'ohio', region: 'us' } },
@@ -117,8 +118,8 @@ var raw = [{ '1': { city: 'sydney', region: 'au' } },
   { '117': { city: 'maryland', region: 'us' } },
   { '118': { city: 'missouri', region: 'us' } },
   { '119': { city: 'montana', region: 'us' } },
-  { '120': { city: 'nebraska', region: 'us' } } ,
- { '121': { city: 'newhampshire', region: 'us' } },
+  { '120': { city: 'nebraska', region: 'us' } },
+  { '121': { city: 'newhampshire', region: 'us' } },
   { '122': { city: 'newmexico', region: 'us' } },
   { '123': { city: 'northcarolina', region: 'us' } },
   { '124': { city: 'northdakota', region: 'us' } },
@@ -157,8 +158,8 @@ var raw = [{ '1': { city: 'sydney', region: 'au' } },
   { '157': { city: 'frenchriviera', region: 'fr' } },
   { '158': { city: 'monaco', region: 'events' } },
   { '159': { city: 'austria', region: 'events' } },
-  { '160': { city: 'east', region: 'es' } } ,
- { '161': { city: 'windsor', region: 'ca' } },
+  { '160': { city: 'east', region: 'es' } },
+  { '161': { city: 'windsor', region: 'ca' } },
   { '162': { city: 'otherregions', region: 'in' } },
   { '163': { city: 'colombia', region: 'events' } },
   { '164': { city: 'malta', region: 'events' } },
@@ -197,8 +198,8 @@ var raw = [{ '1': { city: 'sydney', region: 'au' } },
   { '197': { city: 'cyprus', region: 'events' } },
   { '198': { city: 'moldova', region: 'events' } },
   { '199': { city: 'luxembourg', region: 'events' } },
-  { '200': { city: 'bolivia', region: 'events' } } ,
- { '201': { city: 'iceland', region: 'events' } },
+  { '200': { city: 'bolivia', region: 'events' } },
+  { '201': { city: 'iceland', region: 'events' } },
   { '202': { city: 'guatemala', region: 'events' } },
   { '203': { city: 'qatar', region: 'events' } },
   { '204': { city: 'malawi', region: 'events' } },
@@ -237,8 +238,8 @@ var raw = [{ '1': { city: 'sydney', region: 'au' } },
   { '237': { city: 'krasnodar', region: 'ru' } },
   { '238': { city: 'cuba', region: 'events' } },
   { '239': { city: 'london', region: 'uk' } },
-  { '240': { city: 'london', region: 'uk' } } ,
- { '241': { city: 'london', region: 'uk' } },
+  { '240': { city: 'london', region: 'uk' } },
+  { '241': { city: 'london', region: 'uk' } },
   { '242': { city: 'okinawa', region: 'jp' } },
   { '243': { city: 'gibraltar', region: 'events' } },
   { '244': { city: 'macau', region: 'cn' } },
@@ -277,8 +278,8 @@ var raw = [{ '1': { city: 'sydney', region: 'au' } },
   { '277': { city: 'east', region: 'fr' } },
   { '278': { city: 'north', region: 'fr' } },
   { '279': { city: 'tianjin', region: 'cn' } },
-  { '280': { city: 'wuhan', region: 'cn' } } ,
- { '281': { city: 'nanjing', region: 'cn' } },
+  { '280': { city: 'wuhan', region: 'cn' } },
+  { '281': { city: 'nanjing', region: 'cn' } },
   { '282': { city: 'shenyang', region: 'cn' } },
   { '283': { city: 'chengdu', region: 'cn' } },
   { '284': { city: 'xiamen', region: 'cn' } },
@@ -317,8 +318,8 @@ var raw = [{ '1': { city: 'sydney', region: 'au' } },
   { '317': { city: 'florida', region: 'us' } },
   { '318': { city: 'texas', region: 'us' } },
   { '319': { city: 'dallasfortworth', region: 'us' } },
-  { '320': { city: 'sanantonio', region: 'us' } } ,
- { '321': { city: 'austin', region: 'us' } },
+  { '320': { city: 'sanantonio', region: 'us' } },
+  { '321': { city: 'austin', region: 'us' } },
   { '322': { city: 'elpaso', region: 'us' } },
   { '323': { city: 'goa', region: 'in' } },
   { '324': { city: 'delhi', region: 'in' } },
@@ -357,26 +358,38 @@ var raw = [{ '1': { city: 'sydney', region: 'au' } },
   { '357': { city: 'bavaria', region: 'de' } },
   { '358': { city: 'lowersaxony', region: 'de' } },
   { '359': { city: 'illinois', region: 'us' } },
-  { '360': { city: 'michigan', region: 'us' } } ,
- { '361': { city: 'shenzhen', region: 'cn' } },
+  { '360': { city: 'michigan', region: 'us' } },
+  { '361': { city: 'shenzhen', region: 'cn' } },
   { '362': { city: 'kosovo', region: 'events' } },
   { '363': { city: 'saintmartin', region: 'events' } },
   { '364': { city: 'porto', region: 'pt' } },
   { '365': { city: 'algarve', region: 'pt' } },
   { '366': { city: 'other', region: 'pt' } },
   { '367': { city: 'canaryislands', region: 'es' } },
-  { '368': { city: 'palestine', region: 'events' } }]
+  { '368': { city: 'palestine', region: 'events' } }
+]
 
-var addId = input => input.map((t,i) => ({[i+1]: {id: i+1, ...t[i+1]}}))
-var removeEvent = input => input.map((t,i) => t[i+1].region === 'events' ? ({[i+1]: {region: t[i+1].city, id: t[i+1].id}}) : ({[i+1]: t[i+1]}))
-var removeDuplicates = input => input.filter((t,i) => !(t[i+1].city === 'london' && t[i+1].region === 'uk'))
-var addOneLondon = input => input.concat([{'7': {city: 'london', region: 'uk', id:7}}])
+var addId = input =>
+  input.map((t, i) => ({ [i + 1]: { id: i + 1, ...t[i + 1] } }))
+var removeEvent = input =>
+  input.map(
+    (t, i) =>
+      t[i + 1].region === 'events'
+        ? { [i + 1]: { region: t[i + 1].city, id: t[i + 1].id } }
+        : { [i + 1]: t[i + 1] }
+  )
+var removeDuplicates = input =>
+  input.filter(
+    (t, i) => !(t[i + 1].city === 'london' && t[i + 1].region === 'uk')
+  )
+var addOneLondon = input =>
+  input.concat([{ '7': { city: 'london', region: 'uk', id: 7 } }])
 
 var res = addOneLondon(removeDuplicates(removeEvent(addId(raw))))
 
-var merged = Object.assign({}, ...res)
+Object.assign({}, ...res)
 
-console.log(merged)
+//console.log(merged)
 
 // { '1': { id: 1, city: 'sydney', region: 'au' },
 //   '2': { id: 2, city: 'melbourne', region: 'au' },
@@ -711,4 +724,3 @@ console.log(merged)
 //   '366': { id: 366, city: 'other', region: 'pt' },
 //   '367': { id: 367, city: 'canaryislands', region: 'es' },
 //   '368': { region: 'palestine', id: 368 } }
-

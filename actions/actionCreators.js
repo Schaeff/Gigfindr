@@ -1,17 +1,41 @@
+import { GIGSCRAPR_URL, SOUNDCLOUD_CLIENT_ID } from 'react-native-dotenv'
+
 import {
   SEARCH,
   SEARCH_RESULTS,
   FETCH_GIGS,
   FETCH_GIGS_RESULTS,
-  FETCH_GIG,
-  FETCH_GIG_RESULTS,
   HOLD_GIG,
-  RELEASE_GIG
-} from './actionConstants';
+  RELEASE_GIG,
+  FETCH_PLAYLIST_RESULTS
+} from './actionConstants'
 
-Promise = require('bluebird')
+const SOUNDCLOUD_BASE = 'https://soundcloud.com'
+const SOUNDCLOUD_API_BASE = 'http://api.soundcloud.com'
+const FALLBACK_TRACK_ID = 63256942
 
-const GIGSCRAPR_URL = "https://gigscrapr.herokuapp.com"
+const getTrackId = dj => {
+  if (dj === null) return Promise.resolve(FALLBACK_TRACK_ID)
+  return fetch(
+    SOUNDCLOUD_API_BASE +
+      '/resolve?url=' +
+      SOUNDCLOUD_BASE +
+      '/' +
+      dj +
+      '/tracks' +
+      '&client_id=' +
+      SOUNDCLOUD_CLIENT_ID
+  )
+    .then(res => res.json())
+    .then(r => (r && r[0] ? r[0].id : FALLBACK_TRACK_ID))
+}
+
+const getStreamUrl = trackId =>
+  SOUNDCLOUD_API_BASE +
+  '/tracks/' +
+  trackId +
+  '/stream?client_id=' +
+  SOUNDCLOUD_CLIENT_ID
 
 export const search = text => ({
   type: SEARCH,
@@ -41,34 +65,33 @@ export const fetchGigs = id => ({
 
 export const fetchGigsAsync = id => dispatch => {
   dispatch(fetchGigs(id))
-  return API.fetchGigs(id).then(gigs => dispatch(fetchGigsResults(id, gigs)))
+  return API.fetchGigs(id).then(gigs => {
+    gigs.forEach(g =>
+      g.lineup.forEach(d => dispatch(fetchPlaylistsAsync(d.dj, d.soundcloud)))
+    )
+    dispatch(fetchGigsResults(id, gigs))
+  })
 }
+
+export const fetchPlaylistsAsync = (id, djSc) => dispatch => {
+  return API.fetchPlaylist(djSc).then(streamUrl => {
+    dispatch(fetchPlaylistResults(id, streamUrl))
+  })
+}
+
+export const fetchPlaylistResults = (id, streamUrl) => ({
+  type: FETCH_PLAYLIST_RESULTS,
+  payload: {
+    id,
+    playlist: [streamUrl]
+  }
+})
 
 export const fetchGigsResults = (id, results) => ({
   type: FETCH_GIGS_RESULTS,
   payload: {
     results,
     id
-  }
-})
-
-export const fetchGig = name => ({
-  type: FETCH_GIG,
-  payload: {
-    name
-  }
-})
-
-export const fetchGigAsync = name => dispatch => {
-  dispatch(fetchGig(name))
-  return API.fetchGig(name).then(details => dispatch(fetchGigResults(name, details)))
-}
-
-export const fetchGigResults = (name, results) => ({
-  type: FETCH_GIG_RESULTS,
-  payload: {
-    results,
-    name
   }
 })
 
@@ -87,13 +110,18 @@ export const onReleaseGig = gigId => ({
 })
 
 const API = {
-  fetchPlaces: text => Promise.delay(500)
-    .then(() => Object.keys(PLACES)
-      .map(key => PLACES[key])
-      .filter(p => (p.city && p.city.indexOf(text.toLowerCase()) > -1) || p.region.indexOf(text.toLowerCase()) > -1)),
+  fetchPlaces: text =>
+    Promise.resolve(
+      Object.keys(PLACES)
+        .map(key => PLACES[key])
+        .filter(
+          p =>
+            (p.city && p.city.indexOf(text.toLowerCase()) > -1) ||
+            p.region.indexOf(text.toLowerCase()) > -1
+        )
+    ),
   fetchGigs: c => fetch(GIGSCRAPR_URL + '/city/' + c).then(r => r.json()),
-  fetchGig: name => Promise.delay(500)
-    .then(() => "blahblah")
+  fetchPlaylist: dj => getTrackId(dj).then(getStreamUrl)
 }
 
 const PLACES = {

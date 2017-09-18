@@ -1,74 +1,67 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-import * as actionCreators from '../actions/actionCreators';
+import * as actionCreators from '../actions/actionCreators'
 import { getPlaylist } from '../selectors'
 
-import Video from 'react-native-video';
+import Video from 'react-native-video'
 
-import {
-	ListItem
-} from 'react-native-elements'
+import { ListItem } from 'react-native-elements'
+import { View } from 'react-native'
 
-import {
-	View
-} from 'react-native'
+const streamUrl =
+  'https://api.soundcloud.com/tracks/63256906/stream?client_id=2t9loNQH90kzJcsFCODdigxfp325aq4z'
 
+const GigsListItem = props => {
+  const { gig, gigs, play, playlist } = props
 
-export const streamUrl = 'https://api.soundcloud.com/tracks/199148907/stream?client_id=2t9loNQH90kzJcsFCODdigxfp325aq4z';
+  const toPlay = playlist.length > 0 ? playlist[0] : streamUrl
 
-const GigsListItem = (props) => {
-	const {
-		gig,
-		gigs,
-		play,
-		playlist
-	} = props;
+  const playing = play.state === 'loading' && play.gigId === gig.gigId
 
-	const playing =
-		play.state === 'loading' && play.gigId === gig.gigId
+  const title = playing
+    ? ['Playing from', playlist.length, 'sources'].join(' ')
+    : gigs[gig.gigId].title
 
-	const title = playing ? ['Playing from', playlist.length, 'sources'].join(' ') : gigs[gig.gigId].title
-
-
-	return <View>
-		<ListItem title={title} onPressOut={onReleasePress(props)} onLongPress={onLongPress(props)}/>
-		<Video source={{uri: streamUrl }}
-			   volume={1.0}
-			   muted={false}
-			   paused={!playing}
-			   playInBackground={true}
-			   playWhenInactive={true}
-			   resizeMode="cover"
-			   onProgress={console.log}
-			   onError={console.log}
-			   repeat={false}/>
-	</View>
+  return (
+    <View>
+      <ListItem
+        onLongPress={onLongPress(props)}
+        onPressOut={onReleasePress(props)}
+        title={title}
+      />
+      <Video
+        muted={false}
+        paused={!playing}
+        playInBackground
+        playWhenInactive
+        repeat={false}
+        resizeMode="cover"
+        source={{ uri: toPlay }}
+        volume={1.0}
+      />
+    </View>
+  )
 }
 
 const onLongPress = props => () => {
-	const {
-		gig,
-		onHoldGig
-	} = props
-	return onHoldGig(gig.gigId)
+  const { gig, onHoldGig } = props
+  return onHoldGig(gig.gigId)
 }
 
 const onReleasePress = props => () => {
-	const {
-		gig,
-		onReleaseGig
-	} = props
-	return onReleaseGig(gig.gigId)
+  const { gig, onReleaseGig } = props
+  return onReleaseGig(gig.gigId)
 }
 
 const mapStateToProps = state => ({
-	gigs: state.db.gigs,
-	play: state.play,
-	playlist: getPlaylist(state)
+  gigs: state.db.gigs,
+  play: state.play,
+  playlist: getPlaylist(state)
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(actionCreators, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(GigsListItem)
