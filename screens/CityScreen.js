@@ -1,14 +1,10 @@
-import React from 'react';
-import {
-  ScrollView,
-  Text,
-  StyleSheet
-} from 'react-native';
+import React from 'react'
+import { ScrollView, StyleSheet } from 'react-native'
 import GigsList from '../components/GigsList'
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-import * as actionCreators from '../actions/actionCreators';
+import * as actionCreators from '../actions/actionCreators'
 
 const styles = StyleSheet.create({
   button: {
@@ -28,31 +24,31 @@ const styles = StyleSheet.create({
   spacer: {
     flex: 1
   }
-});
+})
 
-const CityScreen = (props) => {
-  const { navigation, city } = props;
-  const { goBack } = navigation;
-  const { params } = navigation.state;
-  const { id } = params;
+const CityScreen = props => {
+  const { navigation, city } = props
+  const { params } = navigation.state
+  const { id } = params
 
   return (
     <ScrollView style={styles.container}>
-      <GigsList id={id} city={city[id]} navigation={navigation} /> 
+      <GigsList city={city[id]} id={id} navigation={navigation} />
     </ScrollView>
-  );
-};
+  )
+}
 
-CityScreen.navigationOptions = ({ navigation }) => {
+CityScreen.navigationOptions = () => {
   return {
     title: 'City'
-  };
-};
+  }
+}
 
 const mapStateToProps = state => ({
   city: state.db.city
-});
+})
 
-const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(actionCreators, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(CityScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(CityScreen)

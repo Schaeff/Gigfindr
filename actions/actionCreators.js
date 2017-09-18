@@ -1,35 +1,41 @@
-import {
-  GIGSCRAPR_URL,
-  SOUNDCLOUD_CLIENT_ID
-} from 'react-native-dotenv';
+import { GIGSCRAPR_URL, SOUNDCLOUD_CLIENT_ID } from 'react-native-dotenv'
 
 import {
   SEARCH,
   SEARCH_RESULTS,
   FETCH_GIGS,
   FETCH_GIGS_RESULTS,
-  FETCH_GIG,
-  FETCH_GIG_RESULTS,
   HOLD_GIG,
   RELEASE_GIG,
-  FETCH_PLAYLIST,
   FETCH_PLAYLIST_RESULTS
-} from './actionConstants';
-
-Promise = require('bluebird')
+} from './actionConstants'
 
 const SOUNDCLOUD_BASE = 'https://soundcloud.com'
 const SOUNDCLOUD_API_BASE = 'http://api.soundcloud.com'
-const FALLBACK_TRACK_ID=63256942
+const FALLBACK_TRACK_ID = 63256942
 
 const getTrackId = dj => {
-  if(dj === null) return Promise.resolve(FALLBACK_TRACK_ID)
-  return fetch(SOUNDCLOUD_API_BASE + '/resolve?url=' + SOUNDCLOUD_BASE + '/' + dj + '/tracks' + '&client_id=' + SOUNDCLOUD_CLIENT_ID)
+  if (dj === null) return Promise.resolve(FALLBACK_TRACK_ID)
+  return fetch(
+    SOUNDCLOUD_API_BASE +
+      '/resolve?url=' +
+      SOUNDCLOUD_BASE +
+      '/' +
+      dj +
+      '/tracks' +
+      '&client_id=' +
+      SOUNDCLOUD_CLIENT_ID
+  )
     .then(res => res.json())
     .then(r => (r && r[0] ? r[0].id : FALLBACK_TRACK_ID))
 }
 
-const getStreamUrl = trackId => SOUNDCLOUD_API_BASE + '/tracks/' + trackId + '/stream?client_id=' + SOUNDCLOUD_CLIENT_ID
+const getStreamUrl = trackId =>
+  SOUNDCLOUD_API_BASE +
+  '/tracks/' +
+  trackId +
+  '/stream?client_id=' +
+  SOUNDCLOUD_CLIENT_ID
 
 export const search = text => ({
   type: SEARCH,
@@ -60,7 +66,9 @@ export const fetchGigs = id => ({
 export const fetchGigsAsync = id => dispatch => {
   dispatch(fetchGigs(id))
   return API.fetchGigs(id).then(gigs => {
-    gigs.forEach(g => g.lineup.forEach(d => dispatch(fetchPlaylistsAsync(d.dj, d.soundcloud))))
+    gigs.forEach(g =>
+      g.lineup.forEach(d => dispatch(fetchPlaylistsAsync(d.dj, d.soundcloud)))
+    )
     dispatch(fetchGigsResults(id, gigs))
   })
 }
@@ -102,10 +110,16 @@ export const onReleaseGig = gigId => ({
 })
 
 const API = {
-  fetchPlaces: text => Promise.delay(500)
-    .then(() => Object.keys(PLACES)
-      .map(key => PLACES[key])
-      .filter(p => (p.city && p.city.indexOf(text.toLowerCase()) > -1) || p.region.indexOf(text.toLowerCase()) > -1)),
+  fetchPlaces: text =>
+    Promise.delay(500).then(() =>
+      Object.keys(PLACES)
+        .map(key => PLACES[key])
+        .filter(
+          p =>
+            (p.city && p.city.indexOf(text.toLowerCase()) > -1) ||
+            p.region.indexOf(text.toLowerCase()) > -1
+        )
+    ),
   fetchGigs: c => fetch(GIGSCRAPR_URL + '/city/' + c).then(r => r.json()),
   fetchPlaylist: dj => getTrackId(dj).then(getStreamUrl)
 }
