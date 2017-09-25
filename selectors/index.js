@@ -11,6 +11,6 @@ export const getPlaylist = state => {
   if(play.gigId === 0) return []
 
   return gigs[play.gigId].lineup
-    .map(dj => djs[dj.djId].playlist[0])
-    .filter(s => s !== null)
+    .map(dj => djs[dj.djId].playlist)
+    .reduce((a,b) => a.concat(b))
 }

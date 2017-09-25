@@ -12,10 +12,10 @@ import {
 
 const SOUNDCLOUD_BASE = 'https://soundcloud.com'
 const SOUNDCLOUD_API_BASE = 'http://api.soundcloud.com'
-const FALLBACK_TRACK_ID = 63256942
 
 const getTrackId = dj => {
-  if (dj === null) return Promise.resolve(FALLBACK_TRACK_ID)
+  if (dj === null)
+    return Promise.reject(new Error('Cannot get track id for null DJ'))
   return fetch(
     SOUNDCLOUD_API_BASE +
       '/resolve?url=' +
@@ -27,7 +27,9 @@ const getTrackId = dj => {
       SOUNDCLOUD_CLIENT_ID
   )
     .then(res => res.json())
-    .then(r => (r && r[0] ? r[0].id : FALLBACK_TRACK_ID))
+    .then(
+      r => (r && r[0] ? r[0].id : Promise.reject(new Error('DJ has no tracks')))
+    )
 }
 
 const getStreamUrl = trackId =>
@@ -74,9 +76,10 @@ export const fetchGigsAsync = id => dispatch => {
 }
 
 export const fetchPlaylistsAsync = (id, djSc) => dispatch => {
-  return API.fetchPlaylist(djSc).then(streamUrl => {
-    dispatch(fetchPlaylistResults(id, streamUrl))
-  })
+  return API.fetchPlaylist(djSc)
+    .then(streamUrl => {
+      dispatch(fetchPlaylistResults(id, streamUrl))
+    })
 }
 
 export const fetchPlaylistResults = (id, streamUrl) => ({

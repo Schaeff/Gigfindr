@@ -10,13 +10,24 @@ import Video from 'react-native-video'
 import { ListItem } from 'react-native-elements'
 import { View } from 'react-native'
 
-const streamUrl =
-  'https://api.soundcloud.com/tracks/63256906/stream?client_id=2t9loNQH90kzJcsFCODdigxfp325aq4z'
-
 const GigsListItem = props => {
   const { gig, gigs, play, playlist } = props
 
-  const toPlay = playlist.length > 0 ? playlist[0] : streamUrl
+  const requiresPlayer = playlist.length > 0
+
+  if (!requiresPlayer) {
+    return (
+      <View>
+        <ListItem
+          onLongPress={onLongPress(props)}
+          onPressOut={onReleasePress(props)}
+          title={gigs[gig.gigId].title}
+        />
+      </View>
+    )
+  }
+
+  const toPlay = playlist[0]
 
   const playing = play.state === 'loading' && play.gigId === gig.gigId
 

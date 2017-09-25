@@ -18,7 +18,7 @@ const djs = (state = initialState, action) => {
               [dj.dj]: {
                 id: dj.dj,
                 soundcloud: dj.soundcloud,
-                playlist: null
+                playlist: []
               }
             }))
           )
